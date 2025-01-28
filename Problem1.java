@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+Using BFS approach
 Time COmplexity -> O(N)
 Space Complexity -> O(N)
 */
@@ -32,5 +33,37 @@ class Solution {
             result.add(max);
         }
         return result;
+    }
+}
+/*
+Using DFS approach
+Time COmplexity -> O(N)
+Space Complexity -> O(H)
+*/
+
+class Solution2 {
+    List<Integer> result;
+
+    public List<Integer> largestValues(TreeNode root) {
+        if (root == null) {
+            return new ArrayList<>();
+        }
+        result = new ArrayList<>();
+        dfs(root, 0);
+        return result;
+
+    }
+
+    private void dfs(TreeNode root, int level) {
+        if(root == null) {
+            return;
+        }
+        if(result.size() == level) {
+            result.add(root.val);
+        }else {
+            result.set(level,Math.max(result.get(level), root.val));
+        }
+        dfs(root.left, level+1);
+        dfs(root.right, level+1);
     }
 }
